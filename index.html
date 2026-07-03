@@ -252,8 +252,15 @@
       .caption {
         position: absolute;
         left: 28px;
-        right: 28px;
         bottom: 28px;
+        width: min(520px, calc(100% - 56px));
+        padding: 22px 24px 24px;
+        border-left: 4px solid var(--accent);
+        background:
+          linear-gradient(135deg, rgba(17, 19, 21, 0.92), rgba(17, 19, 21, 0.72));
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         z-index: 3;
         color: var(--white);
       }
@@ -263,14 +270,16 @@
         font-family: Georgia, "Times New Roman", serif;
         font-size: 34px;
         line-height: 1.1;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.42);
       }
 
       .caption span {
         display: block;
         margin-top: 12px;
-        color: rgba(255, 255, 255, 0.74);
+        color: rgba(255, 255, 255, 0.9);
         font-size: 14px;
         line-height: 1.7;
+        font-weight: 700;
       }
 
       .section {
@@ -400,6 +409,13 @@
 
         .caption p {
           font-size: 28px;
+        }
+
+        .caption {
+          left: 20px;
+          bottom: 20px;
+          width: calc(100% - 40px);
+          padding: 18px 18px 20px;
         }
       }
     </style>
