@@ -3,12 +3,513 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CodeFaber</title>
+    <title>CodeFaber | Developer Gateway</title>
+    <meta name="description" content="株式会社codeFaberのアプリ公開・広告認証用ページです。企業情報、事業内容、お問い合わせは公式サイトをご覧ください。">
+    <link rel="canonical" href="https://www.codefaber.site/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CodeFaber | Developer Gateway">
+    <meta property="og:description" content="株式会社codeFaberのアプリ公開・広告認証用ページです。公式サイトへの入口として運用しています。">
+    <meta property="og:url" content="https://codefaber-jp.github.io/">
+    <meta property="og:image" content="https://www.codefaber.site/wp-content/themes/codefaber/assets/img/ogp_default.png">
+    <link rel="icon" href="https://www.codefaber.site/wp-content/uploads/2023/08/cropped-icon-32x32.png" sizes="32x32">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #111315;
+        --paper: #f7f4ed;
+        --white: #ffffff;
+        --line: rgba(17, 19, 21, 0.16);
+        --muted: #62676d;
+        --accent: #e55436;
+        --deep: #143d37;
+        --shadow: 0 24px 70px rgba(17, 19, 21, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
+        background:
+          linear-gradient(90deg, rgba(17, 19, 21, 0.055) 1px, transparent 1px) 0 0 / 44px 44px,
+          linear-gradient(180deg, rgba(17, 19, 21, 0.04) 1px, transparent 1px) 0 0 / 44px 44px,
+          var(--paper);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .header {
+        padding: 24px 0 0;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        min-width: 0;
+      }
+
+      .brand img {
+        width: 158px;
+        height: auto;
+        display: block;
+        filter: invert(1);
+      }
+
+      .brand small {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .nav-links a,
+      .button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        padding: 0 16px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.48);
+        transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      }
+
+      .nav-links a:hover,
+      .button:hover {
+        transform: translateY(-2px);
+        border-color: rgba(17, 19, 21, 0.34);
+        background: var(--white);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+        gap: 54px;
+        align-items: center;
+        padding: 64px 0 54px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 22px;
+        color: var(--deep);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 42px;
+        height: 3px;
+        background: var(--accent);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", "Yu Mincho", "YuMincho", serif;
+        font-size: clamp(56px, 8vw, 116px);
+        line-height: 0.92;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 620px;
+        margin: 28px 0 0;
+        color: #31363a;
+        font-size: 18px;
+        line-height: 1.9;
+        font-weight: 600;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: var(--white);
+        border-color: var(--ink);
+        min-height: 52px;
+        padding: 0 22px;
+      }
+
+      .button.primary:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .button.secondary {
+        min-height: 52px;
+        padding: 0 22px;
+      }
+
+      .status {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        margin-top: 42px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+
+      .status div {
+        min-height: 86px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.66);
+      }
+
+      .status strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 12px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .status span {
+        display: block;
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+
+      .visual {
+        position: relative;
+        min-height: 520px;
+        border: 1px solid var(--line);
+        background: var(--ink);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .visual::before {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .visual img {
+        width: 100%;
+        height: 100%;
+        min-height: 520px;
+        object-fit: cover;
+        display: block;
+        opacity: 0.86;
+      }
+
+      .caption {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        bottom: 28px;
+        z-index: 3;
+        color: var(--white);
+      }
+
+      .caption p {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 34px;
+        line-height: 1.1;
+      }
+
+      .caption span {
+        display: block;
+        margin-top: 12px;
+        color: rgba(255, 255, 255, 0.74);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .section {
+        border-top: 1px solid var(--line);
+        padding: 34px 0 44px;
+      }
+
+      .section-grid {
+        display: grid;
+        grid-template-columns: 0.7fr 1.3fr;
+        gap: 36px;
+      }
+
+      .section h2 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: 0.08em;
+      }
+
+      .role-list,
+      .link-list {
+        display: grid;
+        gap: 14px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .role-list li,
+      .link-list a {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.58);
+        padding: 18px;
+      }
+
+      .role-list strong,
+      .link-list strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 15px;
+      }
+
+      .role-list span,
+      .link-list span {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .link-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .link-list a {
+        text-decoration: none;
+        min-height: 104px;
+        transition: transform 180ms ease, background 180ms ease;
+      }
+
+      .link-list a:hover {
+        transform: translateY(-3px);
+        background: var(--white);
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 24px 0 30px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .footer .shell {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .section-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          gap: 34px;
+          padding-top: 46px;
+        }
+
+        .status,
+        .link-list {
+          grid-template-columns: 1fr;
+        }
+
+        .visual,
+        .visual img {
+          min-height: 360px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .shell {
+          width: min(100% - 28px, 1120px);
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: stretch;
+        }
+
+        .nav-links a {
+          flex: 1;
+        }
+
+        .lead {
+          font-size: 16px;
+        }
+
+        .actions .button {
+          width: 100%;
+        }
+
+        .caption p {
+          font-size: 28px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <main>
-      <h1>CodeFaber</h1>
-      <p>CodeFaber app support and advertising authorization files.</p>
-    </main>
+    <div class="page">
+      <header class="header">
+        <div class="shell nav">
+          <a class="brand" href="https://www.codefaber.site/" aria-label="株式会社codeFaber公式サイト">
+            <img src="https://www.codefaber.site/wp-content/uploads/2023/08/cropped-WhiteLogo-e1693453474614.png" alt="株式会社codeFaber">
+            <small>Developer Gateway</small>
+          </a>
+          <nav class="nav-links" aria-label="主要リンク">
+            <a href="https://www.codefaber.site/about-us">企業情報</a>
+            <a href="https://www.codefaber.site/service">事業内容</a>
+            <a href="https://www.codefaber.site/contact">お問い合わせ</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="shell hero" aria-labelledby="hero-title">
+          <div>
+            <p class="eyebrow">Official developer entry</p>
+            <h1 id="hero-title">CodeFaber</h1>
+            <p class="lead">
+              このページは、株式会社codeFaberのアプリ公開・広告認証に関する入口です。
+              企業情報、事業内容、採用、お問い合わせは公式サイトをご確認ください。
+            </p>
+            <div class="actions">
+              <a class="button primary" href="https://www.codefaber.site/">公式サイトへ進む</a>
+              <a class="button secondary" href="https://www.codefaber.site/contact">お問い合わせ</a>
+            </div>
+
+            <div class="status" aria-label="公開情報">
+              <div>
+                <strong>Official site</strong>
+                <span>www.codefaber.site</span>
+              </div>
+              <div>
+                <strong>App ads</strong>
+                <span>app-ads.txt 公開中</span>
+              </div>
+              <div>
+                <strong>Operator</strong>
+                <span>株式会社codeFaber</span>
+              </div>
+            </div>
+          </div>
+
+          <figure class="visual" aria-label="株式会社codeFaber公式サイトのビジュアル">
+            <img src="https://www.codefaber.site/wp-content/themes/codefaber/assets/img/ogp_default.png" alt="株式会社codeFaber">
+            <figcaption class="caption">
+              <p>From apps to services.</p>
+              <span>公開アプリと公式情報を、同じ運営者情報につなぐためのページです。</span>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="section">
+          <div class="shell section-grid">
+            <h2>このページの役割</h2>
+            <ul class="role-list">
+              <li>
+                <strong>アプリ公開情報の入口</strong>
+                <span>App Storeや広告ネットワークから参照される開発者ページとして運用しています。</span>
+              </li>
+              <li>
+                <strong>広告認証ファイルの設置</strong>
+                <span>Google AdMob向けの app-ads.txt を、このドメインのルートで公開しています。</span>
+              </li>
+              <li>
+                <strong>公式サイトへの案内</strong>
+                <span>会社概要、事業内容、採用、お問い合わせは www.codefaber.site に集約しています。</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="shell section-grid">
+            <h2>公式情報</h2>
+            <div class="link-list">
+              <a href="https://www.codefaber.site/about-us">
+                <strong>企業情報</strong>
+                <span>会社概要、代表メッセージはこちら。</span>
+              </a>
+              <a href="https://www.codefaber.site/service">
+                <strong>事業内容</strong>
+                <span>SES、メディア、教育支援、SI事業の紹介。</span>
+              </a>
+              <a href="https://www.codefaber.site/recruit">
+                <strong>採用情報</strong>
+                <span>codeFaberで働くことに関心がある方向けの情報。</span>
+              </a>
+              <a href="https://www.codefaber.site/contact">
+                <strong>お問い合わせ</strong>
+                <span>法人・採用・その他のお問い合わせ窓口。</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="shell">
+          <span>&copy; 2019 - 2026 株式会社codeFaber</span>
+          <a href="/app-ads.txt">app-ads.txt</a>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
