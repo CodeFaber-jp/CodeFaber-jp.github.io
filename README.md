@@ -1,6 +1,6 @@
-# CodeFaber GitHub Pages
+# codeFaber GitHub Pages
 
-Organization-level GitHub Pages site used as a developer gateway for CodeFaber apps and `app-ads.txt` hosting.
+Organization-level GitHub Pages site used as a developer gateway for codeFaber apps and `app-ads.txt` hosting.
 
 - Public page: https://codefaber-jp.github.io/
 - Official company site: https://www.codefaber.site/
